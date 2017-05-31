@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mcalthrop/junit-sandbox.svg?branch=master)](https://travis-ci.org/mcalthrop/junit-sandbox)
+
 # junit-sandbox
 
 _Playing with jUnit_
