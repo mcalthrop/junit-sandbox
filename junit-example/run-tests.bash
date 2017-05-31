@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -ex
 
 JUNIT_JAR=junit-4.12.jar
 HAMCREST_CORE_JAR=hamcrest-core-1.3.jar
