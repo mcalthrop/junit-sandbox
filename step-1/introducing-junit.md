@@ -7,8 +7,9 @@
 
 - understand what jUnit is and how it works
 - write a simple Java class and some jUnit tests for it
-- learn some simple optimisation for jUnit tests
 - automate the test running with a simple shell script
+- learn some simple optimisation for jUnit tests
+- write a test to check for an thrown exception
 
 ### Prerequisites
 
@@ -49,6 +50,10 @@ public class Factorial {
     private int start = 0;
 
     private int factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Factorials are defined only on non-negative integers.");
+        }
+
         int result = n;
 
         if (result > 1) {
@@ -68,7 +73,8 @@ public class Factorial {
 }
 ```
 
-> NOTE: this is a slightly contrived example – the main purpose is to enable us to see how a set of jUnit tests can be developed, including the ability to use `@Before` to define steps that are common to all tests.
+> NOTE: this is a slightly contrived example, and could be simplified (for example, there only really needs to be a `static calculate(int start)` method).
+> However, the main purpose of this example is to enable us to see how a set of jUnit tests can be developed, including the ability to use `@Before` to define steps that are common to all tests.
 
 ### Write a test class
 
@@ -118,7 +124,7 @@ java -classpath .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCor
 
 ### Automate running the test
 
-Having to specify the class path before every command is tiresome. We can automate the whole process by writing a simple shell script:
+Having to specify the class path before every command is tiresome. We can automate the whole process by writing a simple shell script, and using the `CLASSPATH` environment variable:
  
 ```bash
 #!/bin/bash -ex
@@ -155,7 +161,7 @@ OK (1 test)
 
 ## Taking it further
 
-We'll now add a couple more tests, and look at a simple way of optimising the tests.
+We'll now add a couple more tests, look at a simple way of optimising the tests, and testing for a thrown exception when an invalid parameter is provided.
 
 ### Test setting the start value
 
@@ -179,7 +185,7 @@ Note the simple convention we are using when naming each test – each method is
 - a method that we are calling (`setStart()`) on the instance of the `Factorial` class
 - the value passed to that second method
 
-This is a useful way, but not the only way, to name test methods; you may find other ways – the main thing is for the naming convention to be readable and consistent.
+This is a useful way (but not the only way) to name test methods; you may find other ways – the main thing is for the naming convention to be readable and consistent.
 
 Run the tests again:
 
@@ -258,7 +264,42 @@ public class FactorialTest {
 
 ### Add another test
 
-> TODO
+We should add another test to check a number greater than 1:
+
+```java
+    @Test
+    public void calculate_setStart_5() {
+        int testStartValue = 5;
+        int expectedResult = 120;
+
+        factorial.setStart(testStartValue);
+        assertEquals(expectedResult, factorial.calculate());
+    }
+```
+
+Then run the tests again.
+
+### What if the parameter is invalid?
+
+There is a condition where the parameter passed in is invalid: it is not possible to calculate the factorial value of a negative number. In this case, the `factorial()` method will throw an `IllegalArgumentException`.
+
+So we can add a test for this as follows:
+
+```java
+    @Test(expected=IllegalArgumentException.class)
+    public void calculate_setStart_negative() {
+        factorial.setStart(-5);
+        factorial.calculate();
+    }
+```
+
+Note:
+
+- new syntax `@Test` for the annotation
+- there is no actual assertion within the test itself – this is implicit in the annotation
+- and the test will fail if the specified exception is _not_ thrown (test it out yourself!)
+
+Then re-run the tests.
 
 
 ## Conclusion
@@ -269,6 +310,7 @@ public class FactorialTest {
 - how to write jUnit tests
 - and automate the testing process with a simple shell script
 - and optimise tests using `@Before`
+- and check for an exception thrown when expected
 
 ### Further reading
 
