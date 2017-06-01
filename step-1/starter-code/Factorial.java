@@ -2,6 +2,10 @@ public class Factorial {
     private int start = 0;
 
     private int factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Factorials are defined only on non-negative integers.");
+        }
+
         int result = n;
 
         if (result > 1) {
