@@ -9,7 +9,7 @@
 - write a simple Java class and some jUnit tests for it
 - automate the test running with a simple shell script
 - learn some simple optimisation for jUnit tests
-- write a test to check for an thrown exception
+- write a test to check for a thrown exception
 
 ### Prerequisites
 
