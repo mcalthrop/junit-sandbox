@@ -173,6 +173,14 @@ The `Factorial` class exposes a `setStart()` method; let's write a test to check
     }
 ```
 
+Note the simple convention we are using when naming each test – each method is made up of three parts, separated by the `_` character:
+
+- the name of the method we are testing (in this case, we are only testing the `calculate()` method)
+- a method that we are calling (`setStart()`) on the instance of the `Factorial` class
+- the value passed to that second method
+
+This is a useful way, but not the only way, to name test methods; you may find other ways – the main thing is for the naming convention to be readable and consistent.
+
 Run the tests again:
 
 ```bash
@@ -212,7 +220,9 @@ Here's what we will do:
 - add a `@Before` code block in the test class – this will instantiate the `Factorial` class
 - remove the code that instantiates the `Factorial` class within each test, and refactor it to use the private `factorial` class variable
 
-So the test class will now look like this:
+> Implement each of those changes in `FactorialTest.java`
+
+Once you have finished making those changes, the test class will look like this:
 
 ```java
 import static org.junit.Assert.assertEquals;
