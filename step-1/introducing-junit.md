@@ -21,17 +21,11 @@
   - java 8
 
 
-## jUnit
+## Writing a simple jUnit test
 
 ### What is jUnit?
 
-> TODO
-
-
-## Writing a simple jUnit test
-
-> Note: the code described below is an adaptation of [https://github.com/junit-team/junit4/wiki/Getting-started](https://github.com/junit-team/junit4/wiki/Getting-started).
-> To keep things simple, the starter code already contains the Jar files needed to run the jUnit tests.
+JUnit is a unit testing framework for the Java programming language. It enables us to write repeatable tests that can be incorporated into a Continuous Integration workflow.
 
 ### Getting started
 
@@ -42,6 +36,9 @@
 
 
 ### Create a simple Java class
+
+> Note: the code described below is an adaptation of [https://github.com/junit-team/junit4/wiki/Getting-started](https://github.com/junit-team/junit4/wiki/Getting-started).
+> To keep things simple, the starter code in this repo already contains the Jar files needed to run the jUnit tests.
 
 We'll take a simple requirement: write a Java class to implement [factorial](https://en.wikipedia.org/wiki/Factorial) functionality:
 
@@ -161,7 +158,7 @@ OK (1 test)
 
 ## Taking it further
 
-We'll now add a couple more tests, look at a simple way of optimising the tests, and testing for a thrown exception when an invalid parameter is provided.
+We'll now add a couple more tests, look at a simple way of optimising the tests, and test for a thrown exception when an invalid parameter is provided.
 
 ### Test setting the start value
 
@@ -185,7 +182,7 @@ Note the simple convention we are using when naming each test – each method is
 - a method that we are calling (`setStart()`) on the instance of the `Factorial` class
 - the value passed to that second method
 
-This is a useful way (but not the only way) to name test methods; you may find other ways – the main thing is for the naming convention to be readable and consistent.
+This is a useful way (but not the only way) to name test methods; you may find other ways. The main thing is for the naming convention to be readable and consistent.
 
 Run the tests again:
 
