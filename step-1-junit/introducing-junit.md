@@ -48,33 +48,23 @@ Open the empty `Factorial.java` file, enter the following code, and save the fil
 
 ```java
 public class Factorial {
-    private int start = 0;
-
-    private int factorial(int n) {
-        if (n < 0) {
+    public int calculate(int start) {
+        if (start < 0) {
             throw new IllegalArgumentException("Factorials are defined only on non-negative integers.");
         }
 
-        int result = n;
+        int result = start;
 
         if (result > 1) {
-            result = n * factorial(n - 1);
+            result = start * factorial(start - 1);
         }
 
         return result;
     }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int calculate() {
-        return factorial(start);
-    }
 }
 ```
 
-> NOTE: this is a slightly contrived example, and could be simplified (for example, there only really needs to be a `static calculate(int start)` method).
+> NOTE: this is a slightly contrived example, and could be simplified (for example, the `calculate()` method only needs to be `static`).
 > However, the main purpose of this example is to enable us to see how a set of jUnit tests can be developed, including the ability to use `@Before` to define steps that are common to all tests.
 
 ### Write a test class
@@ -89,11 +79,12 @@ import org.junit.Test;
 
 public class FactorialTest {
     @Test
-    public void calculate_default() {
+    public void calculate_0() {
         Factorial factorial = new Factorial();
+        int testStartValue = 0;
         int expectedResult = 0;
 
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 }
 ```
@@ -163,25 +154,23 @@ We'll now add a couple more tests, look at a simple way of optimising the tests,
 
 ### Test setting the start value
 
-The `Factorial` class exposes a `setStart()` method; let's write a test to check this works correctly:
+Let's add a test to check the result when we pass in `1` as a parameter:
 
 ```java
     @Test
-    public void calculate_setStart_1() {
+    public void calculate_1() {
         Factorial factorial = new Factorial();
         int testStartValue = 1;
         int expectedResult = 1;
 
-        factorial.setStart(testStartValue);
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 ```
 
-Note the simple convention we are using when naming each test – each method is made up of three parts, separated by the `_` character:
+Note the simple convention we are using when naming each test – each method is made up of two parts, separated by the `_` character:
 
 - the name of the method we are testing (in this case, we are only testing the `calculate()` method)
-- a method that we are calling (`setStart()`) on the instance of the `Factorial` class
-- the value passed to that second method
+- the value passed to the `calculate()` method
 
 This is a useful way (but not the only way) to name test methods; you may find other ways. The main thing is for the naming convention to be readable and consistent.
 
@@ -240,19 +229,19 @@ public class FactorialTest {
     }
 
     @Test
-    public void calculate_default() {
+    public void calculate_0() {
+        int testStartValue = 0;
         int expectedResult = 0;
 
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 
     @Test
-    public void calculate_setStart_1() {
+    public void calculate_1() {
         int testStartValue = 1;
         int expectedResult = 1;
 
-        factorial.setStart(testStartValue);
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 }
 ```
@@ -263,12 +252,11 @@ We should add another test to check a number greater than 1:
 
 ```java
     @Test
-    public void calculate_setStart_5() {
+    public void calculate_5() {
         int testStartValue = 5;
         int expectedResult = 120;
 
-        factorial.setStart(testStartValue);
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 ```
 
@@ -282,15 +270,14 @@ So we can add a test for this as follows:
 
 ```java
     @Test(expected=IllegalArgumentException.class)
-    public void calculate_setStart_negative() {
-        factorial.setStart(-5);
-        factorial.calculate();
+    public void calculate_negative() {
+        factorial.calculate(-5);
     }
 ```
 
 Note:
 
-- new syntax `@Test` for the annotation
+- new `@Test` syntax for the annotation
 - there is no actual assertion within the test itself – this is implicit in the annotation
 - and the test will fail if the specified exception is _not_ thrown (test it out yourself!)
 
@@ -331,34 +318,32 @@ public class FactorialTest {
     }
 
     @Test
-    public void calculate_default() {
+    public void calculate_0() {
+        int testStartValue = 0;
         int expectedResult = 0;
 
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 
     @Test
-    public void calculate_setStart_1() {
+    public void calculate_1() {
         int testStartValue = 1;
         int expectedResult = 1;
 
-        factorial.setStart(testStartValue);
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 
     @Test
-    public void calculate_setStart_5() {
+    public void calculate_5() {
         int testStartValue = 5;
         int expectedResult = 120;
 
-        factorial.setStart(testStartValue);
-        assertEquals(expectedResult, factorial.calculate());
+        assertEquals(expectedResult, factorial.calculate(testStartValue));
     }
 
     @Test(expected=IllegalArgumentException.class)
-    public void calculate_setStart_negative() {
-        factorial.setStart(-5);
-        factorial.calculate();
+    public void calculate_negative() {
+        factorial.calculate(-5);
     }
 }
 ```
