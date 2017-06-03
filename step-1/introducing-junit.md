@@ -126,7 +126,7 @@ java -classpath .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCor
 
 ### Automate running the test
 
-Having to specify the class path before every command is tiresome. We can automate the whole process by writing a simple shell script, and using the `CLASSPATH` environment variable:
+Having to specify the class path before every command is tiresome. We can automate the whole process by using a simple shell script:
  
 ```bash
 #!/bin/bash -ex
@@ -137,7 +137,7 @@ javac Factorial.java FactorialTest.java
 java org.junit.runner.JUnitCore FactorialTest
 ```
 
-Now run that script:
+That code has been provided in the `run-tests.bash` file in this repo, so we can run it:
 
 ```bash
 ./run-tests.bash
