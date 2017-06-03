@@ -88,9 +88,8 @@ public class FactorialTest {
     public void calculate_default() {
         Factorial factorial = new Factorial();
         int expectedResult = 0;
-        int actualResult = factorial.calculate();
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, factorial.calculate());
     }
 }
 ```
@@ -243,9 +242,8 @@ public class FactorialTest {
     @Test
     public void calculate_default() {
         int expectedResult = 0;
-        int actualResult = factorial.calculate();
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, factorial.calculate());
     }
 
     @Test
@@ -335,9 +333,8 @@ public class FactorialTest {
     @Test
     public void calculate_default() {
         int expectedResult = 0;
-        int actualResult = factorial.calculate();
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, factorial.calculate());
     }
 
     @Test
