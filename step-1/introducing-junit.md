@@ -142,8 +142,6 @@ Now run that script:
 Sample output:
 
 ```
-+ JUNIT_JAR=junit-4.12.jar
-+ HAMCREST_CORE_JAR=hamcrest-core-1.3.jar
 + export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
 + CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
 + javac Factorial.java FactorialTest.java
@@ -192,8 +190,6 @@ Run the tests again:
 Sample output:
 
 ```
-+ JUNIT_JAR=junit-4.12.jar
-+ HAMCREST_CORE_JAR=hamcrest-core-1.3.jar
 + export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
 + CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
 + javac Factorial.java FactorialTest.java
@@ -313,7 +309,7 @@ Then re-run the tests.
 - https://github.com/junit-team/junit4
 - https://en.wikipedia.org/wiki/Hamcrest
 
-### Final code
+### Final code and output
 
 The final version of `FactorialTest.java` should look something like this:
 
@@ -361,4 +357,18 @@ public class FactorialTest {
         factorial.calculate();
     }
 }
+```
+
+And the output of running `./run-tests.bash` should look something like this:
+
+```
++ export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ javac Factorial.java FactorialTest.java
++ java org.junit.runner.JUnitCore FactorialTest
+JUnit version 4.12
+....
+Time: 0.013
+
+OK (4 tests)
 ```
