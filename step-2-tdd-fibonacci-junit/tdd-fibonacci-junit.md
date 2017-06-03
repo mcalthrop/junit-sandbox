@@ -88,10 +88,9 @@ public class FibonacciTest {
     @Test
     public void calculate_0() {
         int testIndex = 0;
-        int expectedResult = 0;
+        int expectedResult = 1;
 
-        fibonacci.setIndex(testIndex);
-        assertEquals(expectedResult, fibonacci.calculate());
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
     }
 }
 ```
@@ -104,16 +103,16 @@ Use the `run-tests.bash` script provided:
 ./run-tests.bash
 ```
 
-Expected output:
+You should see something like this:
 
 ```
 + export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
 + CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
 + javac Fibonacci.java FibonacciTest.java
-FibonacciTest.java:17: error: cannot find symbol
-        assertEquals(expectedResult, fibonacci.calculate());
+FibonacciTest.java:18: error: cannot find symbol
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
                                               ^
-  symbol:   method calculate()
+  symbol:   method calculate(int)
   location: variable fibonacci of type Fibonacci
 1 error
 ```
@@ -124,18 +123,12 @@ This is exactly what we would expect when taking a TDD approach: we have written
 
 In its most basic form, TDD requires that you only write enough code &ndash; and nothing more &ndash; to make the failing test pass.
 
-So let's add some code to `FibonacciTest.java` to make the failing test pass:
+So let's add enough code to `FibonacciTest.java` to make the failing test pass:
 
 ```java
 class Fibonacci {
-    private int index = 0;
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public int calculate() {
-        return this.index;
+    public int calculate(int index) {
+        return 1;
     }
 }
 ```
@@ -165,7 +158,7 @@ We have completed writing the first test, so it's now time to repeat the process
 
 Looking at the rules that govern Fibonacci sequence, it is evident that the second number (i.e., index `1`) in the sequence is not derived from the its predecessors &ndash; it can't be, because there are not two predecessors.
 
-So it seems logical that this is the next test we should write:
+So it seems logical that this is the next test we should add:
 
 ```java
     @Test
@@ -173,14 +166,13 @@ So it seems logical that this is the next test we should write:
         int testIndex = 1;
         int expectedResult = 1;
 
-        fibonacci.setIndex(testIndex);
-        assertEquals(expectedResult, fibonacci.calculate());
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
     }
 ```
 
 ### Run the tests
 
-Expected output:
+You should see something like this:
 
 ```
 + export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
@@ -195,6 +187,85 @@ OK (2 tests)
 ```
 
 Interesting: in this case, we have not introduced an error. We will continue using the TDD principle of only writing enough code to make the tests pass.
+
+
+## The third test
+
+### Write the test
+
+Now write a test to calculate a different number in the sequence – `6`, for example:
+
+```java
+    @Test
+    public void calculate_6() {
+        int testIndex = 6;
+        int expectedResult = 13;
+
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
+    }
+```
+
+### Run the tests
+
+You should see something like this:
+
+```
++ export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ javac Fibonacci.java FibonacciTest.java
++ java org.junit.runner.JUnitCore FibonacciTest
+JUnit version 4.12
+...E
+Time: 0.016
+There was 1 failure:
+1) calculate_6(FibonacciTest)
+java.lang.AssertionError: expected:<13> but was:<1>
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:645)
+	at org.junit.Assert.assertEquals(Assert.java:631)
+	at FibonacciTest.calculate_6(FibonacciTest.java:34)
+	...long Java stacktrace...
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+```
+
+This is what we would expect, as we have not actually written the code that implements the Fibonacci functionality.
+
+### Write the code for the test
+
+Finally we get to writing the meat of the code!
+
+```java
+class Fibonacci {
+    public int calculate(int index) {
+        if (index == 0 || index == 1) {
+            return 1;
+        }
+
+        return calculate(index - 1) + calculate(index - 2);
+    }
+}
+```
+
+### Run the tests again
+
+And you should see output like this:
+
+```
++ export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ javac Fibonacci.java FibonacciTest.java
++ java org.junit.runner.JUnitCore FibonacciTest
+JUnit version 4.12
+...
+Time: 0.008
+
+OK (3 tests)
+```
+
+We have now implemented the basic Fibonacci functionality.
 
 
 > **TODO:** complete lesson
