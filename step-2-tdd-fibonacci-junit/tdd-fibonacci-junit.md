@@ -268,18 +268,87 @@ OK (3 tests)
 We have now implemented the basic Fibonacci functionality.
 
 
-> **TODO:** complete lesson
+## What next?
+
+Looking at the requirements, we can see that a negative number as a parameter is considered invalid.
+
+So you can now use a TDD approach to develop that functionality. Refer to the tests and code in the previous lesson for relevant syntax.
 
 
 ## Conclusion
 
 ### What we've covered
 
-- 
+- explained the principles behind a TDD approach to software development
+- used TDD with jUnit to test and implement a simple Fibonacci class in Java
 
 ### Further reading
 
-- 
+- https://martinfowler.com/bliki/TestDrivenDevelopment.html
+- http://agiledata.org/essays/tdd.html
+- http://www.drdobbs.com/architecture-and-design/dr-dobbs-agile-update-0110/222301633
 
 ### Final code and output
 
+`FibonacciTest.java` should look like this:
+
+```java
+import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+
+public class FibonacciTest {
+    private Fibonacci fibonacci;
+
+    @Before
+    public void setUp() {
+        fibonacci = new Fibonacci();
+    }
+
+    @Test
+    public void calculate_0() {
+        int testIndex = 0;
+        int expectedResult = 1;
+
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
+    }
+
+    @Test
+    public void calculate_1() {
+        int testIndex = 1;
+        int expectedResult = 1;
+
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
+    }
+
+    @Test
+    public void calculate_6() {
+        int testIndex = 6;
+        int expectedResult = 13;
+
+        assertEquals(expectedResult, fibonacci.calculate(testIndex));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void calculate_negative() {
+        fibonacci.calculate(-1);
+    }
+}
+```
+
+And `Fibonacci.java` something like this:
+
+```java
+class Fibonacci {
+    public int calculate(int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException("Fibonacci numbers are defined only by non-negative indexes.");
+        }
+        if (index <= 1) {
+            return 1;
+        }
+
+        return calculate(index - 1) + calculate(index - 2);
+    }
+}
+```
