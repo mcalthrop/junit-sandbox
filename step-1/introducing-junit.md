@@ -42,7 +42,9 @@ JUnit is a unit testing framework for the Java programming language. It enables 
 > Note: the code described below is an adaptation of [https://github.com/junit-team/junit4/wiki/Getting-started](https://github.com/junit-team/junit4/wiki/Getting-started).
 > To keep things simple, the starter code in this repo already contains the Jar files needed to run the jUnit tests.
 
-We'll take a simple requirement: write a Java class to implement [factorial](https://en.wikipedia.org/wiki/Factorial) functionality:
+We'll take a simple requirement: write a Java class to implement [factorial](https://en.wikipedia.org/wiki/Factorial) functionality.
+
+Open the empty `Factorial.java` file, enter the following code, and save the file:
 
 ```java
 public class Factorial {
@@ -77,7 +79,9 @@ public class Factorial {
 
 ### Write a test class
 
-Let's now write a class that jUnit can use to test the `Factorial` class:
+Let's now write a class that jUnit can use to test the `Factorial` class.
+
+Open the empty `FactorialTest.java` file, enter the following code, and save the file:
 
 ```java
 import static org.junit.Assert.assertEquals;
