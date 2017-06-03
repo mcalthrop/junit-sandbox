@@ -15,10 +15,12 @@
 
 - an understanding of how to use git and GitHub
 - a basic understanding of the Java programming language
-- a system that runs some flavour of Unix or Linux; for Windows 10 users, see the [Windows Subsystem for Linux (WSL) Installation Guide](https://msdn.microsoft.com/en-gb/commandline/wsl/install_guide)
+- a system that runs some flavour of Unix or Linux
 - software installed:
-  - git 2.x
+  - git 1.x
   - java 8
+
+**Note for Windows 10 users:** please see [github.com/mcalthrop/ubuntu-windows-setup](https://github.com/mcalthrop/ubuntu-windows-setup) for information about how to set up Ubuntu on your system.
 
 
 ## Writing a simple jUnit test
