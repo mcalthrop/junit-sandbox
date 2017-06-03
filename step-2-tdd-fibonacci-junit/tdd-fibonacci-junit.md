@@ -158,6 +158,45 @@ OK (1 test)
 
 We have completed writing the first test, so it's now time to repeat the process until we believe we have written sufficient tests.
 
+
+## The second test
+
+### Write the test
+
+Looking at the rules that govern Fibonacci sequence, it is evident that the second number (i.e., index `1`) in the sequence is not derived from the its predecessors &ndash; it can't be, because there are not two predecessors.
+
+So it seems logical that this is the next test we should write:
+
+```java
+    @Test
+    public void calculate_1() {
+        int testIndex = 1;
+        int expectedResult = 1;
+
+        fibonacci.setIndex(testIndex);
+        assertEquals(expectedResult, fibonacci.calculate());
+    }
+```
+
+### Run the tests
+
+Expected output:
+
+```
++ export CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ CLASSPATH=.:junit-4.12.jar:hamcrest-core-1.3.jar
++ javac Fibonacci.java FibonacciTest.java
++ java org.junit.runner.JUnitCore FibonacciTest
+JUnit version 4.12
+..
+Time: 0.012
+
+OK (2 tests)
+```
+
+Interesting: in this case, we have not introduced an error. We will continue using the TDD principle of only writing enough code to make the tests pass.
+
+
 > **TODO:** complete lesson
 
 
