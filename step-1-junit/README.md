@@ -246,6 +246,8 @@ public class FactorialTest {
 }
 ```
 
+Note a key unit testing principle: _each test should test one thing, and one thing only_. This simplifies each test, and makes it easier to track down any test errors that occur.
+
 ### Add another test
 
 We should add another test to check a number greater than 1:
